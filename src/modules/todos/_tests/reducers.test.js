@@ -7,7 +7,7 @@ import utils from '@test-utils';
 const defaultTodo = mock.todo('My first todo', 'Todo description');
 
 describe('todos reducers', () => {
-  it('Should create a todo and return a list of todos', () => {
+  it(`Should call reducer for action: ${types.CREATE_TODO} and return a list of todos`, () => {
     const createTodo = utils.callReducer(
       reducers, 
       {
@@ -21,7 +21,7 @@ describe('todos reducers', () => {
     expect(createTodo).toEqual(expectedResult);
   });
 
-  it('Should edit a todo and return a list of todos with the edited todo', () => {
+  it(`Should call reducer for action: ${types.EDIT_TODO} and return a list of updated todos`, () => {
     const initialState = { list: [ defaultTodo ]};
     const editedTodo = { ...defaultTodo, title: 'Updated todo'};
     
