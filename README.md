@@ -1,54 +1,63 @@
-# Testing-workshop
+# Testing workshop
 
-This repo holds examples on how we do testing in Vizzuality. What we require you to cover is:
+This repo contains some examples on how we do testing at vizzuality.
 
-1. actions
-2. reducers
-3. selectors
-4. utils & buisness logic
+# 4 rules of thumbs
 
-Each of these scenarios are showcased in this repo.
+## 1. Each module that contains tests should have the test folder prefixed with a underscore(`_`)
 
-# Tools we use (TBD)
+This makes sure the test folder ends up in the **index of the current tree position**.
 
-1. Jest
-2. Webpack
-3. Babel
+The reason for this is so that when doing code reviews or working on a project it will be easy for your peers (and you) to locate if tests are in place.
 
-# Guidelines
+## 2. Never reference a module/function outside of current module in your tests
 
-Each module that contains tests should be prefixed with a `_`. This makes sure the test folder ends up in the index tree position.
+We want to keep our tests tidy, the tests that are define in the current module should only reflect that module. Otherwise we will run into problem if for example: folder struture or buisness logic change.
 
-Our tests have a consistan naming convention so we can debug our test easy.
+## 3. Treat your tests as it will be shown to a client
 
-#### Describers
+Keep your tests structured and organized. Each test should do one thing, and one thing good.
 
+## 4. Dont test implementations, make your life easy
+
+When working with for example thunk actions or sagas, we dont want to test the implementation. (rodrigo put learnings here)
+
+# Code organization guidelines
+
+## Defining your tests
+
+When writing/reviewing tests, you should think of these 4 things.
+
+1. Whats the initial state?
+2. Whats the input?
+3. What should we call?
+4. What output do we expect?
+
+Here is a example template:
+
+```js
+it('Should call setAccount and set user in our state', () => {
+  const initialState = { user: null };
+  const input = { firstname: 'John', lastname: 'Doe' };
+
+  const expectedResult = { user: input };
+
+  expect(setAccount(input)).toEqual(expectedResult);
+});
 ```
-# Syntax
-describe(`<component/module> <function>, () => {
 
-# Example
-describe('todos reducers', () => {
-```
+Try to follow this convention whenever writing your conditions. If you write/review a test that is loger than **15 lines**, usualy its doing more than one thing. Kepp that in mind when reviewing.
 
-#### Condition
+## 3 Rules of mocking
 
-```
-# Syntax:
-it(`Should call <type> <name> and return <expected_result>`)
+### 1. Always mock your data
 
-# Example
-it(`Should call reducer for action: CREATE_TODO and return a list of todos`, () => { ... }
-```
+Never include api calls or dynamic data in your tests. Everything should be mocked.
 
-## Dealing with jest
+### 2. Dont put mocks in your test file
 
-When using jest we have a `jest.config.js` file in our root. The only thing we add here is the location to our test utils. Search for `moduleNameMapper` in that file.
+When you have mock data, always keep it in a `mock.js` file/folder in your test directory.
 
-## Mocking data
+### 3. Keep your mocks clean!
 
-If you need mock data, include a mock.js file inside the _test folder so it will be easy to find. We never call real apis, data should always be mocked.
-
-## Sagas
-
-When dealing with sagas, dont test the implementation, your reducer/action tests should be enough.
+Dont just copy/paste api results in your mock. A mock should be easy to debug and it should be clear whats going on when debugging. Only include mock keys / data that is required by your logic.
