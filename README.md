@@ -1,31 +1,54 @@
 # Testing-workshop
 
-Home to our test examples and workshop material
+This repo holds examples on how we do testing in Vizzuality. What we require you to cover is:
 
-This repo holds examples on everything we want to cover during the workshop. 
+1. actions
+2. reducers
+3. selectors
+4. utils & buisness logic
 
-1. Testing redux actions and reducers
-2. Testing utilites
-3. Snapshot testing (to be added)
+Each of these scenarios are showcased in this repo.
 
-# Some guidelines 
+# Tools we use (TBD)
 
-Our tests should have a consistant naming convention, you will see how we structure it in our examples but TLDR;
+1. Jest
+2. Webpack
+3. Babel
 
-each test folder should be prefixed with a `_` this ensures it ends up ontop of the tree for redability.
+# Guidelines
 
-## Describer
+Each module that contains tests should be prefixed with a `_`. This makes sure the test folder ends up in the index tree position.
 
-The describer should be named like this: `<component/module> <function>'`so for example a reducer test would look like this: `describe('todos reducers', () => {` 
+Our tests have a consistan naming convention so we can debug our test easy.
 
-## Condition 
-
-`Should call <component/module> for <function>: ${constant here} and return <result>` so for example on the same reducer it would look like this: 
+#### Describers
 
 ```
-it(`Should call reducer for action: ${types.CREATE_TODO} and return a list of todos`, () => {
+# Syntax
+describe(`<component/module> <function>, () => {
+
+# Example
+describe('todos reducers', () => {
 ```
 
-## Mocks
+#### Condition
 
-If you need mock data, include a mock.js file inside the _test folder. 
+```
+# Syntax:
+it(`Should call <type> <name> and return <expected_result>`)
+
+# Example
+it(`Should call reducer for action: CREATE_TODO and return a list of todos`, () => { ... }
+```
+
+## Dealing with jest
+
+When using jest we have a `jest.config.js` file in our root. The only thing we add here is the location to our test utils. Search for `moduleNameMapper` in that file.
+
+## Mocking data
+
+If you need mock data, include a mock.js file inside the _test folder so it will be easy to find. We never call real apis, data should always be mocked.
+
+## Sagas
+
+When dealing with sagas, dont test the implementation, your reducer/action tests should be enough.
