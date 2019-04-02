@@ -1,7 +1,6 @@
-// Common test utilities 
-
-
-export default { 
+// Common test utilities
+export default {
+  email: 'mocks@email.com',
   // All actions should follow the same structure
   // { payload: ..., type: ...}
   action: (payload, type) => {

@@ -16,7 +16,7 @@ describe('todos actions', () => {
   afterEach(() => {
     fetchMock.restore()
   });
-  
+
   it(`Should call action ${types.CREATE_TODO} and return a todo`, () => {
     const store = mockStore({ list: [] })
     store.dispatch(actions.createTodo(defaultTodo))
