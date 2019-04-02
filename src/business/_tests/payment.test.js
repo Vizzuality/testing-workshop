@@ -1,3 +1,5 @@
+import utils from '@test-utils';
+
 import mocks from './mocks';
 import payment, { PAYMENT_TYPES } from '../payment';
 
@@ -6,22 +8,22 @@ describe('Payments', () => {
   const { expected } = payments;
 
   it('Should make a valid adyen payment', () => {
-    const result = payment(payments.adyen);
+    const result = payment({ ...payments.adyen, amount: utils.number(10) });
     expect(result).toEqual(expected.success);
   });
 
   it('Should make a valid paypal payment', () => {
-    const result = payment(payments.paypal);
+    const result = payment({ ...payments.paypal, amount: utils.number(10) });
     expect(result).toEqual(expected.success);
   });
 
   it('Should make a valid apple payment', () => {
-    const result = payment(payments.apple);
+    const result = payment({ ...payments.apple, amount: utils.number(10) });
     expect(result).toEqual(expected.success);
   });
 
   it('Should return invalid payment provider error', () => {
-    const result = payment(payments.invalidProvider);
+    const result = payment({ ...payments.invalidProvider, amount: utils.number(10) });
     expect(result).toEqual(expected.invalidProvider);
   });
 
@@ -30,15 +32,8 @@ describe('Payments', () => {
     expect(result).toEqual(expected.missingField);
   });
 
-  it('Should trigger custom case if amount === 1000', () => {
-    const result = payment(payments.specialPayment);
+  it('This is going to fail on purpose!', () => {
+    const result = payment({ ...payments.specialPayment, amount: utils.number(10) });
     expect(result).toEqual(expected.special);
   });
-
-  // This is here on purpose, this is showcasing why testing is important
-  // We are expecting amount to return the special case, but amount is a string!
-  // it('Fail on purpose!', () => {
-  //   const result = payment({ ...payments.specialPayment, amount: '1000'});
-  //   expect(result).toEqual(expected.special);
-  // });
 });

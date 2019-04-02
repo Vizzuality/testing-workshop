@@ -1,6 +1,9 @@
 // Common test utilities
 export default {
   email: 'mocks@email.com',
+  number: (number = 0) => {
+    return `${number}`;
+  },
   // All actions should follow the same structure
   // { payload: ..., type: ...}
   action: (payload, type) => {
