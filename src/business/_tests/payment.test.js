@@ -33,7 +33,7 @@ describe('Payments', () => {
   });
 
   it('Should return special case if amount === 1000', () => {
-    const result = payment({ ...payments.specialPayment, amount: utils.number(10) });
+    const result = payment({ ...payments.specialPayment, amount: utils.number(1000) });
     expect(result).toEqual(expected.special);
   });
 });
