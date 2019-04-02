@@ -32,7 +32,7 @@ describe('Payments', () => {
     expect(result).toEqual(expected.missingField);
   });
 
-  it('This is going to fail on purpose!', () => {
+  it('Should return special case if amount === 1000', () => {
     const result = payment({ ...payments.specialPayment, amount: utils.number(10) });
     expect(result).toEqual(expected.special);
   });
