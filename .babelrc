@@ -1,0 +1,34 @@
+{
+  "presets": [
+    ["@babel/env", {
+      "useBuiltIns": "entry"
+    }],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["@babel/env", {
+          "useBuiltIns": "entry"
+        }],
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-transform-modules-commonjs",
+        ["module-resolver", {
+          "alias": {
+            "components": "./src/components",
+            "modules": "./src/modules",
+            "business": "./src/business",
+            "store": "./src/store",
+            "utils": "./src/utils"
+          }
+        }]
+      ]
+    }
+  }
+}
